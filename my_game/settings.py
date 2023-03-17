@@ -10,7 +10,7 @@ RUNNING = True
 
 # player attributes
 PLAYER_ACC = 2
-PLAYER_FRICTION = -0.12
+PLAYER_FRICTION = -0.10
 
 # mob attributes
 MOB_ACC = .025
