@@ -58,29 +58,23 @@ class Mob(Sprite):
         self.image = pg.Surface((50,50))
         self.image.fill(RED)
         self.rect = self.image.get_rect()
-        self.pos = vec(WIDTH/4, HEIGHT/2)
+        self.pos = vec(WIDTH/2, HEIGHT/2)
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.cofric = 0.1
         self.canjump = False
     def behavior(self):
-        self.acc.y = -MOB_ACC
-        # self.acc.x = -MOB_ACC 
-        # self.acc.y = MOB_ACC
-        # self.acc.x = MOB_ACC
-        if self.rect.x > WIDTH:
+        # checks screen collisions for width
+        if self.rect.x > WIDTH or self.rect.x < 0:
             print("I'm off the right screen...")
-        if self.rect.x < 0:
-            print("I'm off the left screen...")
-        if self.rect.y < 0:
-            print("I'm off the top screen...")
-            # reduces velocity of object
-            self.vel *= -1
-        if self.rect.y > HEIGHT:
-            print("I'm off the bottom screen...")
+            print(self.vel.x)
+            self.vel.x *= -1
+        # checks screen collisions for height
+        if self.rect.y > HEIGHT or self.rect.y < 0:
+            print("I'm off the right screen...")
+            print(self.vel.y)
+            self.vel.y *= -1
     def update(self):
-        self.acc = self.vel * MOB_FRICTION
         self.behavior()
-        self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
+        self.pos += self.vel
         self.rect.center = self.pos

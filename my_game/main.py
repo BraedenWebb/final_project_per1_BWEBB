@@ -1,13 +1,16 @@
 # File created by Braeden Webb
 
+# test 1
+
 # import libs
 import pygame as pg
 import random
 import os
-# import settings 
+# import settings
 from settings import *
 from sprites import *
-# from pg.sprite import Sprite
+from random import randint
+# from pg.sprite import Sprites
 
 # set up assets folders
 game_folder = os.path.dirname(__file__)
@@ -33,6 +36,13 @@ pewpews = pg.sprite.Group()
 # creates instance of player
 player = Player()
 invader = Mob()
+invader.vel = vec(randint(8,80),randint(8,80))
+
+for i in range(0,10):
+    m = Mob()
+    m.vel = vec(randint(8,80),randint(8,80))
+    all_sprites.add(m)
+    enemies.add(m)
 
 # testSprite = Sprite()
 # testSprite.image = pg.Surface((50,50))
@@ -58,10 +68,10 @@ while RUNNING:
     ### update section of game loop (if updates take longer the 1/30th of a second, you will get laaaaag...)
     all_sprites.update()
 
-    blocks_hit_list = pg.sprite.spritecollide(player, enemies, True)
-    for block in blocks_hit_list:
-        # print(enemies)
-        pass
+    # blocks_hit_list = pg.sprite.spritecollide(player, enemies, True)
+    # for block in blocks_hit_list:
+    #     print(enemies)
+    #     pass
     ### draw and render section of game loop
     screen.fill(BLUE)
     all_sprites.draw(screen)
