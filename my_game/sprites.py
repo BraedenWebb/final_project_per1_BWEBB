@@ -11,10 +11,12 @@ vec = pg.math.Vector2
 # create a player class
 
 class Player(Sprite):
-    def __init__(self):
+    def __init__(self, image_file):
         Sprite.__init__(self)
-        self.image = pg.Surface((50,50))
-        self.image.fill(BLACK)
+        self.image_file = image_file
+        # X # self.image = pg.Surface((50,50))
+        self.image = pg.transform.scale(image_file, (50, 50))
+        # self.image.fill(BLACK)
         self.rect = self.image.get_rect()
         self.pos = vec(WIDTH/2, HEIGHT/2)
         self.vel = vec(0,0)
@@ -42,6 +44,7 @@ class Player(Sprite):
             self.pos += self.vel + 0.5 *self.acc
             # make image centered to player position
             self.rect.center = self.pos
+            # Checks if player is off screen
             if self.rect.x > WIDTH:
                 print("I'm off the right screen...")
             if self.rect.x < 0:

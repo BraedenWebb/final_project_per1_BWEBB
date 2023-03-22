@@ -14,9 +14,9 @@ PLAYER_FRICTION = -0.10
 
 # mob attributes
 MOB_ACC = .025
-MOB_FRICTION = .1
+MOB_FRICTION = .01
 
 # colors
 BLACK = (0,0,0)
-BLUE = (150,150,255)
+BLUE = (0,0,255)
 RED = (255,0,0)
