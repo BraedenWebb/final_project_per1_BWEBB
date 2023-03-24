@@ -8,24 +8,23 @@ from settings import *
 
 vec = pg.math.Vector2
 
-# create a player class
+
+# create a player
 
 class Player(Sprite):
-    def __init__(self, image_file):
+    def __init__(self, game):
         Sprite.__init__(self)
-        self.image_file = image_file
-        # X # self.image = pg.Surface((50,50))
-        self.image = pg.transform.scale(image_file, (50, 50))
-        # self.image.fill(BLACK)
+        self.game = game
+        self.image = pg.Surface((50,50))
+        # self.image = pg.transform.scale((50, 38))
+        self.image.fill(BLACK)
         self.rect = self.image.get_rect()
         self.pos = vec(WIDTH/2, HEIGHT/2)
         self.vel = vec(0,0)
         self.acc = vec(0,0)
-        self.confric = 0.1
+        self.cofric = 0.1
         self.canjump = False
-    # defines player input
     def input(self):
-        # player directions
         keystate = pg.key.get_pressed()
         if keystate[pg.K_w]:
             self.acc.y = -PLAYER_ACC
@@ -35,25 +34,27 @@ class Player(Sprite):
             self.acc.y = PLAYER_ACC
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
+    # def jump(self):
+    #     # jump only if standing on a platform
+    #     self.rect.x += 1
+    #     hits = pg.sprite.spritecollide(self, self.game.platforms, False)
+    #     self.rect.x -= 1
+    #     if hits:
+    #         self.vel.y = -PLAYER_JUMP
     def update(self):
-            self.acc = self.vel * PLAYER_FRICTION
-            self.input()
-            # adds acceleration to velocity
-            self.vel += self.acc
-            # changes player position
-            self.pos += self.vel + 0.5 *self.acc
-            # make image centered to player position
-            self.rect.center = self.pos
-            # Checks if player is off screen
-            if self.rect.x > WIDTH:
-                print("I'm off the right screen...")
-            if self.rect.x < 0:
-                print("I'm off the left screen...")
-            if self.rect.y < 0:
-                print("I'm off the top screen...")
-            if self.rect.y > HEIGHT:
-                print("I'm off the bottom screen...")
-
+        self.acc = self.vel * PLAYER_FRICTION
+        self.input()
+        self.vel += self.acc
+        self.pos += self.vel + 0.5 * self.acc
+        self.rect.center = self.pos
+        if self.rect.x > WIDTH:
+            print("I'm off the right screen...")
+        if self.rect.x < 0:
+            print("I'm off the left screen...")
+        if self.rect.y < 0:
+            print("I'm off the top screen...")
+        if self.rect.y > HEIGHT:
+            print("I'm off the bottom screen...")
 
 class Mob(Sprite):
     def __init__(self):
@@ -67,16 +68,9 @@ class Mob(Sprite):
         self.cofric = 0.1
         self.canjump = False
     def behavior(self):
-        # checks screen collisions for width
-        if self.rect.x > WIDTH or self.rect.x < 0:
-            print("I'm off the right screen...")
-            print(self.vel.x)
-            self.vel.x *= -1
-        # checks screen collisions for height
-        if self.rect.y > HEIGHT or self.rect.y < 0:
-            print("I'm off the right screen...")
-            print(self.vel.y)
-            self.vel.y *= -1
+        if self.rect.x > WIDTH or self.rect.x < 0 or self.rect.y > HEIGHT or self.rect.y < 0:
+            self.vel *= -1
+
     def update(self):
         self.behavior()
         self.pos += self.vel
