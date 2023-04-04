@@ -6,10 +6,14 @@ Goals, Rules, Feedback, Freedom
 - Have sprites
 
 ## Rules ##
-- Player sti
+- Player stuck at bottom
+- Enemies above
+- Player can not pass side walls
+- Player and Enemy have health
+- Player has 3 lives
 
 ## Feedback ##
-- 
+- Make sure player dies after hitting bullet
 
 ## Freedom ##
-- 
+- Allow free control

@@ -10,9 +10,6 @@
 # Sources: http://kidscancode.org/blog/2016/08/pygame_1-1_getting-started/
 # Sources: 
 
-
-
-
 # import libs
 import pygame as pg
 import os
@@ -43,18 +40,8 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
-        self.player = Player(self)
-        # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
-        # # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
-        # self.all_sprites.add(self.plat1)
-
-        # self.platforms.add(self.plat1)
-        
+        self.player = Player(self)    
         self.all_sprites.add(self.player)
-        # for plat in PLATFORM_LIST:
-        #     p = Platform(*plat)
-        #     self.all_sprites.add(p)
-        #     self.platforms.add(p)
         for i in range(0,10):
             m = Mob(20,20,(RED))
             self.all_sprites.add(m)
@@ -67,35 +54,33 @@ class Game:
             self.events()
             self.update()
             self.draw()
-    
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 if self.playing:
                     self.playing = False
                 self.running = False
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_SPACE:
-                    self.player.jump()
     def update(self):
         self.all_sprites.update()
-        if self.player.vel.y > 0:
-            hits = pg.sprite.spritecollide(self.player, self.platforms, False)
-            if hits:
-                if hits[0].variant == "disappearing":
-                    hits[0].kill()
-                elif hits[0].variant == "bouncey":
-                    self.player.pos.y = hits[0].rect.top
-                    self.player.vel.y = -PLAYER_JUMP
-                else:
-                    self.player.pos.y = hits[0].rect.top
-                    self.player.vel.y = 0
-
+        hits = pg.sprite.spritecollide(self.player, self.enemies, False)
+        if hits:
+            if hits[0]:
+                # hits[0].kill()
+                print("enemy hit")
+                self.score -= 1
+                print("PRINT SCORE")
+            elif hits[0]:
+                self.player.pos.y = hits[0].rect.top
+                self.player.vel.y = -PLAYER_JUMP
+            else:
+                self.player.pos.y = hits[0].rect.top
+                self.player.vel.y = 0
     def draw(self):
-        self.screen.fill(BLUE)
+        self.screen.fill(WHITE)
         self.all_sprites.draw(self.screen)
         # is this a method or a function?
         pg.display.flip()
+        
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)
@@ -103,9 +88,17 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x,y)
         self.screen.blit(text_surface, text_rect)
+
     def get_mouse_now(self):
         x,y = pg.mouse.get_pos()
         return (x,y)
+    
+    # Sceen text
+    def draw(self):
+        self.screen.fill(WHITE)
+        self.draw_text("HEALTH: ", 42, RED, WIDTH/10, HEIGHT/10)
+        self.all_sprites.draw(self.screen)
+        pg.display.flip()
 
 # instantiate the game class...
 g = Game()
