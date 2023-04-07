@@ -22,7 +22,39 @@ from sprites import *
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, "img")
 
-# create game class in order to pass properties to the sprites file
+### Images ###
+
+# game_folder = os.path.dirname(__file__)
+# print(game_folder)
+
+# # Takes images from folders and sets them to variables
+# ship_image = pg.image.load(os.path.join(game_folder, 'ship.png')).convert()
+
+# # Set Image Transparency
+# ship_image.set_colorkey(BLACK)
+
+# # Does not store pixels but instead where they are and how many they are in dimensions
+# # Allows for those values to changed and adjusted
+# ship_image_rect = ship_image.get_rect()
+
+# # Sets image coordinates
+# # rps
+# ship_image_rect.x = 0
+
+
+### create game class in order to pass properties to the sprites file
+
+class Cooldown():
+    def __init__(self):
+        self.current_time = 0
+        self.event_time = 0
+        self.delta = 0
+    def ticking(self):
+        self.current_time = ((pg.time.get_ticks())/1000)
+        self.delta = self.current_time - self.event_time
+        # print(self.delta)
+    def timer(self):
+        self.current_time = ((pg.time.get_ticks())/1000)
 
 class Game:
     def __init__(self):
@@ -31,12 +63,14 @@ class Game:
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption("my game")
+        # Timer set
         self.clock = pg.time.Clock()
         self.running = True
         print(self.screen)
     def new(self):
-        # starting a new game
-        self.score = 0
+        ## starting a new game
+        self.health = 100
+        self.cd = Cooldown()
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
@@ -62,19 +96,28 @@ class Game:
                 self.running = False
     def update(self):
         self.all_sprites.update()
+        # Starts ticking timer
+        self.cd.ticking()
+        # print(pg.time.get_ticks())
         hits = pg.sprite.spritecollide(self.player, self.enemies, False)
         if hits:
             if hits[0]:
                 # hits[0].kill()
                 print("enemy hit")
-                self.score -= 1
-                print("PRINT SCORE")
+                print(self.health)
+                # Changes enemery damage
+                self.health -= 1
             elif hits[0]:
                 self.player.pos.y = hits[0].rect.top
                 self.player.vel.y = -PLAYER_JUMP
             else:
                 self.player.pos.y = hits[0].rect.top
                 self.player.vel.y = 0
+        # If player health goes below 0
+        if self.health == 0:
+            self.playing = False
+            ### resets timer ###
+            self.cd.ticking()
     def draw(self):
         self.screen.fill(WHITE)
         self.all_sprites.draw(self.screen)
@@ -97,6 +140,10 @@ class Game:
     def draw(self):
         self.screen.fill(WHITE)
         self.draw_text("HEALTH: ", 42, RED, WIDTH/10, HEIGHT/10)
+        # draw health
+        self.draw_text(str(self.health), 42, RED, WIDTH/4, HEIGHT/10)
+        # draw timer
+        self.draw_text(str(self.cd.delta), 42, BLACK, WIDTH/1.15, HEIGHT/10)
         self.all_sprites.draw(self.screen)
         pg.display.flip()
 

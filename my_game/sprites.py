@@ -45,13 +45,6 @@ class Player(Sprite):
         keystate = pg.key.get_pressed()
         if keystate[pg.K_SPACE]:
             self.acc.x = -PLAYER_ACC
-    # Check if Player is out of bounds
-    def mob_collide(self):
-            hits = pg.sprite.spritecollide(self, self.game.enemies, True)
-            if hits:
-                print("you collided with an enemy...")
-                self.game.score += 1
-                print(SCORE)
     def update(self):
         self.acc = vec(0, PLAYER_GRAV)
         self.acc = self.vel * PLAYER_FRICTION
@@ -85,7 +78,7 @@ class Mob(Sprite):
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/2, HEIGHT/1)
         # mob speed
         self.vel = vec(5)
         self.acc = vec(1,1)

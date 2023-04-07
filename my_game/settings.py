@@ -19,5 +19,5 @@ RED = (255,0,50)
 
 FPS = 60
 RUNNING = True
-SCORE = 0
+HEATLH = 100
 PAUSED = False
