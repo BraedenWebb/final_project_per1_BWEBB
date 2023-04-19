@@ -6,7 +6,7 @@ Goals, Rules, Feedback, Freedom
 - Have sprites
 
 ## Rules ##
-- Player stuck at bottom
+- Player
 - Enemies above
 - Player can not pass side walls
 - Player and Enemy have health

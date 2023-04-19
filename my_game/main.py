@@ -62,7 +62,7 @@ class Game:
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption("my game")
+        pg.display.set_caption("D_O_D_G_E")
         # Timer set
         self.clock = pg.time.Clock()
         self.running = True
@@ -105,27 +105,23 @@ class Game:
                 # hits[0].kill()
                 print("enemy hit")
                 print(self.health)
-                # Changes enemery damage
+                # Enemy damage
                 self.health -= 1
-            elif hits[0]:
-                self.player.pos.y = hits[0].rect.top
-                self.player.vel.y = -PLAYER_JUMP
-            else:
-                self.player.pos.y = hits[0].rect.top
-                self.player.vel.y = 0
         # If player health goes below 0
         if self.health == 0:
+            # resets player position
             self.playing = False
             ### resets timer ###
-            self.cd.ticking()
+            self.current_time = 0
+            self.event_time = 0
+            self.delta = 0
     def draw(self):
         self.screen.fill(WHITE)
         self.all_sprites.draw(self.screen)
-        # is this a method or a function?
         pg.display.flip()
         
     def draw_text(self, text, size, color, x, y):
-        font_name = pg.font.match_font('arial')
+        font_name = pg.font.match_font('Retro Gaming')
         font = pg.font.Font(font_name, size)
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()
@@ -139,9 +135,9 @@ class Game:
     # Sceen text
     def draw(self):
         self.screen.fill(WHITE)
-        self.draw_text("HEALTH: ", 42, RED, WIDTH/10, HEIGHT/10)
+        self.draw_text("HP:", 42, RED, 60, HEIGHT/10)
         # draw health
-        self.draw_text(str(self.health), 42, RED, WIDTH/4, HEIGHT/10)
+        self.draw_text(str(self.health), 42, RED, 150, HEIGHT/10)
         # draw timer
         self.draw_text(str(self.cd.delta), 42, BLACK, WIDTH/1.15, HEIGHT/10)
         self.all_sprites.draw(self.screen)
