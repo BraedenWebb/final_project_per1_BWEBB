@@ -77,9 +77,12 @@ class Game:
         self.player = Player(self)    
         self.all_sprites.add(self.player)
         # adds enemies
-        for i in range(1,5):
+        for i in range(1,10):
+            # widht, height, color
             m = Mob(20,20,(RED))
-            m.vel = vec(randint(1,5),randint(10,10))
+            # vec sets velocity between set range
+            # rantint sets direction
+            m.vel = vec(randint(1,10),randint(1,5))
             self.all_sprites.add(m)
             self.enemies.add(m)
         self.run()
