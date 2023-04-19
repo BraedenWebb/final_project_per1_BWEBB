@@ -76,11 +76,14 @@ class Game:
         self.enemies = pg.sprite.Group()
         self.player = Player(self)    
         self.all_sprites.add(self.player)
-        for i in range(0,10):
+        # adds enemies
+        for i in range(1,5):
             m = Mob(20,20,(RED))
+            m.vel = vec(randint(1,5),randint(10,10))
             self.all_sprites.add(m)
             self.enemies.add(m)
         self.run()
+    # Makes game run
     def run(self):
         self.playing = True
         while self.playing:
@@ -94,6 +97,7 @@ class Game:
                 if self.playing:
                     self.playing = False
                 self.running = False
+    # Updates during Frames
     def update(self):
         self.all_sprites.update()
         # Starts ticking timer
@@ -106,15 +110,13 @@ class Game:
                 print("enemy hit")
                 print(self.health)
                 # Enemy damage
-                self.health -= 1
+                self.health -= 10
         # If player health goes below 0
         if self.health == 0:
             # resets player position
             self.playing = False
             ### resets timer ###
-            self.current_time = 0
-            self.event_time = 0
-            self.delta = 0
+
     def draw(self):
         self.screen.fill(WHITE)
         self.all_sprites.draw(self.screen)
