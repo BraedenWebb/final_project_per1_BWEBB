@@ -70,7 +70,9 @@ class Game:
     def new(self):
         ## starting a new game
         self.health = 100
+        self.score = 0
         self.cd = Cooldown()
+        # self.all_sprites = pg.sprscoreoup()
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
@@ -82,7 +84,7 @@ class Game:
             m = Mob(20,20,(RED))
             # vec sets velocity between set range
             # rantint sets direction
-            m.vel = vec(randint(1,10),randint(1,5))
+            m.vel = vec(randint(1,5),randint(1,5))
             self.all_sprites.add(m)
             self.enemies.add(m)
         self.run()
@@ -141,10 +143,13 @@ class Game:
     def draw(self):
         self.screen.fill(WHITE)
         self.draw_text("HP:", 42, RED, 60, HEIGHT/10)
+        self.draw_text("SCORE:", 42, BLUE, 108, 95)
         # draw health
         self.draw_text(str(self.health), 42, RED, 150, HEIGHT/10)
         # draw timer
         self.draw_text(str(self.cd.delta), 42, BLACK, WIDTH/1.15, HEIGHT/10)
+        # draw score
+        self.draw_text(str(self.score), 42, BLUE, 220, 95)
         self.all_sprites.draw(self.screen)
         pg.display.flip()
 
