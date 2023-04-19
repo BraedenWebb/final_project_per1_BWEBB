@@ -110,7 +110,7 @@ class Game:
                 print("enemy hit")
                 print(self.health)
                 # Enemy damage
-                self.health -= 10
+                self.health -= 1
         # If player health goes below 0
         if self.health == 0:
             # resets player position
