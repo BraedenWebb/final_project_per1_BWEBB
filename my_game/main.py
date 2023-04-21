@@ -62,7 +62,7 @@ class Game:
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption("D_O_D_G_E")
+        pg.display.set_caption("ঌ|D_0_D_G_E|໒")
         # Timer set
         self.clock = pg.time.Clock()
         self.running = True
@@ -79,8 +79,8 @@ class Game:
         self.player = Player(self)    
         self.all_sprites.add(self.player)
         # adds enemies
-        for i in range(1,10):
-            # widht, height, color
+        for i in range(1,20):
+            # width, height, color
             m = Mob(20,20,(RED))
             # vec sets velocity between set range
             # rantint sets direction
@@ -112,15 +112,19 @@ class Game:
         if hits:
             if hits[0]:
                 # hits[0].kill()
-                print("enemy hit")
-                print(self.health)
+                # print("enemy hit")
+                # print(self.health)
                 # Enemy damage
                 self.health -= 1
+
         # If player health goes below 0
         if self.health == 0:
+            # Print Player Score
+            print("YOUR TIME:")
+            print(self.cd.delta)
             # resets player position
             self.playing = False
-            ### resets timer ###
+         ### resets timer ###
 
     def draw(self):
         self.screen.fill(WHITE)
@@ -142,15 +146,18 @@ class Game:
     # Sceen text
     def draw(self):
         self.screen.fill(WHITE)
+        # draw players, enemies, etc...
+        self.all_sprites.draw(self.screen)
+        # draw standard text
         self.draw_text("HP:", 42, RED, 60, HEIGHT/10)
         self.draw_text("SCORE:", 42, BLUE, 108, 95)
+        self.draw_text("==================-|D_0_D_G_E|-==================", 42, BLACK, WIDTH/2, 10)
         # draw health
         self.draw_text(str(self.health), 42, RED, 150, HEIGHT/10)
         # draw timer
         self.draw_text(str(self.cd.delta), 42, BLACK, WIDTH/1.15, HEIGHT/10)
         # draw score
-        self.draw_text(str(self.score), 42, BLUE, 220, 95)
-        self.all_sprites.draw(self.screen)
+        self.draw_text(str(self.score), 42, BLUE, 230, 95)
         pg.display.flip()
 
 # instantiate the game class...

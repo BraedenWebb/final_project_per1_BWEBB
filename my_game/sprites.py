@@ -40,6 +40,8 @@ class Player(Sprite):
         #     else:
         #         PAUSED = False
         #         print("PAUSED")
+        if keystate[pg.K_r]:
+            self.playing = False
     # Player Bullet shoot
     def shoot(self):
         keystate = pg.key.get_pressed()
@@ -50,20 +52,20 @@ class Player(Sprite):
         self.acc = self.vel * PLAYER_FRICTION
         self.input()
         self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
+        self.pos += self.vel + 0.0 * self.acc
         self.rect.midbottom = self.pos
         # checks if player is off screen
         if self.rect.x > WIDTH:
-            print("bump")
+            # print("bump")
             self.vel.x = -5
         if self.rect.x < 0:
-            print("bump")
+            # print("bump")
             self.vel.x = 5
         if self.rect.y < 0:
-            print("bump")
+            # print("bump")
             self.vel.y = 5
         if self.rect.y > HEIGHT:
-            print("bump")
+            # print("bump")
             self.vel.y = -5
             
 
@@ -83,7 +85,6 @@ class Mob(Sprite):
         self.vel = vec(5)
         self.acc = vec(1,1)
         self.cofric = 0.01
-    # ...
     def inbounds(self):
         if self.rect.x > WIDTH:
             self.vel.x *= -1
