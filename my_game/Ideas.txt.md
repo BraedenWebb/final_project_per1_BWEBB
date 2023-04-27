@@ -7,10 +7,9 @@ Goals, Rules, Feedback, Freedom
 
 ## Rules ##
 - Player
-- Enemies above
-- Player can not pass side walls
+- Enemies move around
+- Player bounces off walls
 - Player and Enemy have health
-- Player has 3 lives
 
 ## Feedback ##
 - Make sure player dies after hitting bullet

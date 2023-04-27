@@ -1,4 +1,6 @@
 # File created by: Braeden Webb
+# Sources: https://bcpsj-my.sharepoint.com/personal/ccozort_bcp_org/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Fccozort%5Fbcp%5Forg%2FDocuments%2FDocuments%2F000%5FIntro%20to%20Programming%2F2022%5F2023%5FSpring%2FCode%2Fexamples%2Fgame%5Fexample%2Fmain%2Epy&parent=%2Fpersonal%2Fccozort%5Fbcp%5Forg%2FDocuments%2FDocuments%2F000%5FIntro%20to%20Programming%2F2022%5F2023%5FSpring%2FCode%2Fexamples%2Fgame%5Fexample
+
 
 import pygame as pg
 from pygame.sprite import Sprite
@@ -11,10 +13,16 @@ vec = pg.math.Vector2
 class Player(Sprite):
     def __init__(self, game):
         Sprite.__init__(self)
+        
         # these are the properties
+        
+        # Adds Images
+        # self.images = pg.transform.scale(self.game.player_img, (50,50))
+        # self.image.set_colorkey(WHITE)
+
         self.game = game
         self.image = pg.Surface((50,50))
-        self.image.fill(BLACK)
+        self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(WIDTH/2, HEIGHT/2)
@@ -22,6 +30,8 @@ class Player(Sprite):
         self.acc = vec(0,0)
         self.cofric = 0.1
         self.canjump = False
+        self.fired = False
+    
     # Player Inputs
     def input(self):
         keystate = pg.key.get_pressed()
@@ -33,20 +43,29 @@ class Player(Sprite):
             self.acc.y = PLAYER_ACC
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
-        # if keystate[pg.K_p]:
-        #     if PAUSED == False:
-        #         PAUSED = True
-        #         print("PAUSED")
-        #     else:
-        #         PAUSED = False
-        #         print("PAUSED")
-        if keystate[pg.K_r]:
-            self.playing = False
+        if keystate[pg.K_b]:
+            self.fire()
+            # print("bullet fired")
+
     # Player Bullet shoot
-    def shoot(self):
-        keystate = pg.key.get_pressed()
-        if keystate[pg.K_SPACE]:
-            self.acc.x = -PLAYER_ACC
+    def fire(self):
+        # self.current_time = (pg.time.get_ticks()/1000)
+        # mpos = pg.mouse.get_pos()
+        # targetx = mpos[0]
+        # targety = mpos[1]
+        # distance_x = targetx - self.rect.x
+        # distance_y = targety - self.rect.y
+        speed_x = 0 
+        speed_y = -10
+        # print(speed_x)
+        b = Bullet(self.pos.x,self.pos.y - self.rect.height, 30, 30, speed_x, speed_y, "player")
+        # else:
+        #     p = Pewpew(self.pos.x,self.pos.y - self.rect.height, 10, 10, speed_x, speed_y, "player")
+
+        # Creates sprites
+        self.game.all_sprites.add(b)
+        self.game.bullets.add(b)
+
     def update(self):
         self.acc = vec(0, PLAYER_GRAV)
         self.acc = self.vel * PLAYER_FRICTION
@@ -68,7 +87,6 @@ class Player(Sprite):
             # print("bump")
             self.vel.y = -5
             
-
 
 class Mob(Sprite):
     def __init__(self,width,height, color):
@@ -105,19 +123,37 @@ class Mob(Sprite):
         self.pos += self.vel
         self.rect.center = self.pos
 
-# playerbullet
-
+# bullet sprite
 class Bullet(Sprite):
-    def __init__(self, game):
+    def __init__(self, x, y, w, h,sx,sy, owner):
         Sprite.__init__(self)
-        # these are the properties
-        self.game = game
-        self.image = pg.Surface((25,25))
-        self.image.fill(BLUE)
+        self.owner = owner
+        self.image = pg.Surface((w, h))
+        self.image.set_colorkey(BLUE)
         self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(WIDTH/2, HEIGHT/2)
-        self.vel = vec(0,0)
-        self.acc = vec(0,0)
-        self.cofric = 0.1
-        self.canjump = False
+        self.image = pg.Surface((15,15))
+        # if self.owner == 'player':
+            # self.radius = w/2
+            # # pg.draw.circle(self.image, BLUE, self.rect.center, self.radius)
+            # self.image = pg.Surface((50,50))
+        # else:
+        #     self.image.fill(RED)
+        self.rect.x = x
+        self.rect.y = y
+        self.speed_x = sx
+        self.speed_y = sy
+        self.fired = False
+        self.image.fill(BLUE)
+    
+    def update(self):
+        self.rect.x += self.speed_x
+        self.rect.y += self.speed_y
+    #     if self.owner == "player":
+    #         self.rect.x += self.speed_x
+    #         self.rect.y += self.speed_y
+    #         # print(pewpews)
+    #     else:
+    #         self.rect.y += self.speed_y
+    #     if (self.rect.y < 0 or self.rect.y > HEIGHT):
+    #         self.kill()
+            # print(pewpews)
