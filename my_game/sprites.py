@@ -25,7 +25,7 @@ class Player(Sprite):
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/4, HEIGHT/1.1)
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.cofric = 0.1
@@ -35,15 +35,18 @@ class Player(Sprite):
     # Player Inputs
     def input(self):
         keystate = pg.key.get_pressed()
-        if keystate[pg.K_w]:
-            self.acc.y = -PLAYER_ACC
+        # # Vertical Controls
+        # if keystate[pg.K_w]:
+        #     self.acc.y = -PLAYER_ACC
+        # if keystate[pg.K_s]:
+        #     self.acc.y = PLAYER_ACC
+        # Horizontal Controls
         if keystate[pg.K_a]:
             self.acc.x = -PLAYER_ACC
-        if keystate[pg.K_s]:
-            self.acc.y = PLAYER_ACC
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
-        if keystate[pg.K_b]:
+        # Firing Controls
+        if keystate[pg.K_SPACE]:
             self.fire()
             # print("bullet fired")
 

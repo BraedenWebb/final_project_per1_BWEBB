@@ -94,7 +94,7 @@ class Game:
         # adds enemies
         for i in range(1,20):
             # width, height, color
-            m = Mob(20,20,(RED))
+            m = Mob(20,20,(GREEN))
             # vec sets velocity between set ranbge
             # rantint sets direction
             m.vel = vec(randint(1,5),randint(1,5))
@@ -173,7 +173,7 @@ class Game:
         # draw standard text
         self.draw_text("HP:", 42, RED, 60, HEIGHT/10)
         self.draw_text("SCORE:", 42, BLUE, 108, 95)
-        self.draw_text("==================-|D_0_D_G_E|-==================", 42, GREEN, WIDTH/2, 10)
+        self.draw_text("========================================", 42, WHITE, WIDTH/2, 10)
         # draw health
         self.draw_text(str(self.health), 42, RED, 150, HEIGHT/10)
         # draw timere
