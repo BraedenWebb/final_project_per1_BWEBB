@@ -24,7 +24,7 @@ from time import *
 
 # set up assets folders
 game_folder = os.path.dirname(__file__)
-img_folder = os.path.join(game_folder, "imgages")
+img_folder = os.path.join(game_folder, "images")
 
 ### Images ###
 
@@ -70,7 +70,7 @@ class Game:
         pg.display.set_caption("ঌ|D_0_D_G_E|໒")
 
     # def load_data(self):
-    #     self.player_img = pg.image.load(path.join(img_folder, "ship.png")).convert()
+        self.player_ship = pg.image.load(os.path.join(img_folder, "ship.png")).convert()
         
         # Timer set
         self.clock = pg.time.Clock()

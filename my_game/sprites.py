@@ -17,8 +17,10 @@ class Player(Sprite):
         # these are the properties
         
         # Adds Images
-        # self.images = pg.transform.scale(self.game.player_img, (50,50))
-        # self.image.set_colorkey(WHITE)
+        self.images_orig = pg.transform.scale(self.player_ship, (50,50))
+        self.image_orig.set_colorkey(WHITE)
+        self.image = self.image_orig.copy()
+        self.rect = self.image.get_rect()
 
         self.game = game
         self.image = pg.Surface((50,50))
