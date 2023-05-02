@@ -15,16 +15,13 @@ class Player(Sprite):
         Sprite.__init__(self)
         
         # these are the properties
-        
-        # Adds Images
-        self.images_orig = pg.transform.scale(self.player_ship, (50,50))
-        self.image_orig.set_colorkey(WHITE)
-        self.image = self.image_orig.copy()
-        self.rect = self.image.get_rect()
-
         self.game = game
-        self.image = pg.Surface((50,50))
-        self.image.fill(WHITE)
+        # Sets Player Sprite
+        self.image = pg.transform.scale(self.game.player_img, (48*2,30*2))
+        self.image.set_colorkey(WHITE)
+    
+        # self.image = pg.Surface((50,50))
+        # self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(WIDTH/4, HEIGHT/1.1)
@@ -134,7 +131,12 @@ class Bullet(Sprite):
         Sprite.__init__(self)
         self.owner = owner
         self.image = pg.Surface((w, h))
-        self.image.set_colorkey(BLUE)
+
+        # Sets bullet sprite
+        # self.image = pg.transform.scale(self.game.bullet_img, (15,15))
+        # self.image.set_colorkey(WHITE)
+
+        # self.image.set_colorkey(BLUE)
         self.rect = self.image.get_rect()
         self.image = pg.Surface((15,15))
         # if self.owner == 'player':
@@ -148,7 +150,7 @@ class Bullet(Sprite):
         self.speed_x = sx
         self.speed_y = sy
         self.fired = False
-        self.image.fill(BLUE)
+        self.image.fill(RED)
     
     def update(self):
         self.rect.x += self.speed_x
