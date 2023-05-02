@@ -75,7 +75,7 @@ class Game:
 
     def load_data(self):
         self.player_img = pg.image.load(path.join(img_folder, "ship.png")).convert()        
-        self.bullet_img = pg.image.load(path.join(img_folder, "bullet.png")).convert()        
+        # self.bullet_img = pg.image.load(path.join(img_folder, "bullet.png")).convert()        
     
     # Properties for player
     def new(self):
