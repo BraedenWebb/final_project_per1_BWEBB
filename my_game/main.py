@@ -69,6 +69,10 @@ class Game:
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption("ঌ|D_0_D_G_E|໒")
+
+    # def load_data(self):
+    #     self.player_img = pg.image.load(path.join(img_folder, "ship.png")).convert()
+        
         # Timer set
         self.clock = pg.time.Clock()
         self.running = True

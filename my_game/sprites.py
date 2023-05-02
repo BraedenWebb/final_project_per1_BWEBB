@@ -15,6 +15,16 @@ class Player(Sprite):
         Sprite.__init__(self)
         
         # these are the properties
+<<<<<<< HEAD
+=======
+        
+        # Adds Images
+        self.images_orig = pg.transform.scale(self.player_ship, (50,50))
+        self.image_orig.set_colorkey(WHITE)
+        self.image = self.image_orig.copy()
+        self.rect = self.image.get_rect()
+
+>>>>>>> da3074793b63a6e3756f63a8ef2edeaa1c303df4
         self.game = game
         # Adds Image
         self.image = pg.transform.scale(self.game.player_img, (50,50))
