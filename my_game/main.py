@@ -13,6 +13,7 @@
 # import libs
 import pygame as pg
 import os
+from os import path
 # import settings 
 from settings import *
 from sprites import *
@@ -24,7 +25,7 @@ from time import *
 
 # set up assets folders
 game_folder = os.path.dirname(__file__)
-img_folder = os.path.join(game_folder, "imgages")
+img_folder = os.path.join(game_folder, "images")
 
 ### Images ###
 
@@ -68,17 +69,16 @@ class Game:
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption("ঌ|D_0_D_G_E|໒")
-
-    # def load_data(self):
-    #     self.player_img = pg.image.load(path.join(img_folder, "ship.png")).convert()
-        
         # Timer set
         self.clock = pg.time.Clock()
         self.running = True
-        print(self.screen)
+
+    def load_data(self):
+        self.player_img = pg.image.load(path.join(img_folder, "ship.png")).convert()        
     
     # Properties for player
     def new(self):
+        self.load_data()
         self.health = 100
         self.score = 0
         self.cd = Cooldown()
@@ -102,9 +102,7 @@ class Game:
             self.enemies.add(m)
         # Makes game run
         self.run()
-
-    
-    
+     
     # Makes game run
     def run(self):
         self.playing = True
