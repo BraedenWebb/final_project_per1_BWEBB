@@ -70,7 +70,7 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption("ঌ|D_0_D_G_E|໒")
 
-    # def load_data(self):
+    def load_data(self):
         self.player_ship = pg.image.load(os.path.join(img_folder, "ship.png")).convert()
         
         # Timer set
