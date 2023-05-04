@@ -15,8 +15,6 @@ class Player(Sprite):
         Sprite.__init__(self)
         
         # these are the properties
-<<<<<<< HEAD
-=======
         
         # Adds Images
         self.images_orig = pg.transform.scale(self.player_ship, (50,50))
@@ -24,14 +22,9 @@ class Player(Sprite):
         self.image = self.image_orig.copy()
         self.rect = self.image.get_rect()
 
->>>>>>> da3074793b63a6e3756f63a8ef2edeaa1c303df4
         self.game = game
-        # Adds Image
-        self.image = pg.transform.scale(self.game.player_img, (50,50))
-        self.image.set_colorkey(WHITE)
-    
-        # self.image = pg.Surface((50,50))
-        # self.image.fill(WHITE)
+        self.image = pg.Surface((50,50))
+        self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(WIDTH/4, HEIGHT/1.1)
@@ -44,11 +37,11 @@ class Player(Sprite):
     # Player Inputs
     def input(self):
         keystate = pg.key.get_pressed()
-        # # Vertical Controls
-        # if keystate[pg.K_w]:
-        #     self.acc.y = -PLAYER_ACC
-        # if keystate[pg.K_s]:
-        #     self.acc.y = PLAYER_ACC
+        # Vertical Controls
+        if keystate[pg.K_w]:
+            self.acc.y = -PLAYER_ACC
+        if keystate[pg.K_s]:
+            self.acc.y = PLAYER_ACC
         # Horizontal Controls
         if keystate[pg.K_a]:
             self.acc.x = -PLAYER_ACC
@@ -111,10 +104,11 @@ class Mob(Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(WIDTH/2, HEIGHT/1)
+
         # mob speed
-        self.vel = vec(5)
-        self.acc = vec(1,1)
-        self.cofric = 0.01
+        # self.vel = vec(1)
+        # self.acc = vec(1,1)
+        # self.cofric = 0.001
     def inbounds(self):
         if self.rect.x > WIDTH:
             self.vel.x *= -1
@@ -141,25 +135,34 @@ class Bullet(Sprite):
         Sprite.__init__(self)
         self.owner = owner
         self.image = pg.Surface((w, h))
-        self.image.set_colorkey(BLUE)
+
+        # Sets bullet sprite
+        # self.image = pg.transform.scale(self.game.bullet_img, (15,15))
+        # self.image.set_colorkey(WHITE)
+
+        # self.image.set_colorkey(BLUE)
         self.rect = self.image.get_rect()
         self.image = pg.Surface((15,15))
-        # if self.owner == 'player':
-            # self.radius = w/2
-            # # pg.draw.circle(self.image, BLUE, self.rect.center, self.radius)
-            # self.image = pg.Surface((50,50))
-        # else:
-        #     self.image.fill(RED)
+
         self.rect.x = x
         self.rect.y = y
         self.speed_x = sx
         self.speed_y = sy
         self.fired = False
-        self.image.fill(BLUE)
+        # Bullet color
+        self.image.fill(RED)
     
     def update(self):
         self.rect.x += self.speed_x
         self.rect.y += self.speed_y
+        
+        # Bullet enemy collision
+        # Destroys bullet
+        # bullethits = pg.sprite.spritecollide(self.enemies, False)
+        # if bullethits:
+        #     self.kill()
+        #     print("test")
+            
     #     if self.owner == "player":
     #         self.rect.x += self.speed_x
     #         self.rect.y += self.speed_y
