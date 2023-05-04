@@ -71,6 +71,7 @@ class Game:
         pg.display.set_caption("ঌ|D_0_D_G_E|໒")
         # Timer set
         self.clock = pg.time.Clock()
+        # Makes player running
         self.running = True
 
     def load_data(self):
@@ -81,8 +82,10 @@ class Game:
     def new(self):
         self.load_data()
         self.health = 100
+        # standard score
         self.score = 0
         self.cd = Cooldown()
+        self.playerdeath = False
         
         # self.all_sprites = pg.sprscoreoup()
         self.all_sprites = pg.sprite.Group()
@@ -95,10 +98,10 @@ class Game:
         # adds enemies
         for i in range(1,20):
             # width, height, color
-            m = Mob(20,20,(GREEN))
-            # vec sets velocity between set ranbge
+            m = Mob(40,40,(GREEN))
             # rantint sets direction
-            m.vel = vec(randint(1,5),randint(1,5))
+            # vec sets velocity between set ranbge
+            m.vel = vec(randint(1,5),randint(1,2))
             self.all_sprites.add(m)
             self.enemies.add(m)
         # Makes game run
@@ -131,16 +134,38 @@ class Game:
                 # print(self.health)
                 # Enemy damage
                 self.health -= 1
+        # Group collide checks if two variables collide
+        # If they both collide and are set to True, they dissapear
+        playerhits = pg.sprite.groupcollide(self.bullets, self.enemies, True, True)
+        if playerhits:
+            # Increase score
+            self.score += 10
+
 
         # If player health goes below 0
         if self.health < 0:
+            self.playerdeath = True
+        if self.playerdeath == True:
             # Print Player Score
             print("YOUR TIME:")
             print(self.cd.delta)
-            # resets player position
-            self.playing = False
+            print("YOUR SCORE:")
+            print(self.score)
             ### resets timer ###
             self.cd.reset()
+
+            # resets player position
+            self.playing = False
+
+        # if self.health < 0:
+        #     # Print Player Score
+        #     print("YOUR TIME:")
+        #     print(self.cd.delta)
+        #     ### resets timer ###
+        #     self.cd.reset()
+        #     # resets player position
+        #     self.playing = False
+
 
         # Starts ticking timer
         self.cd.ticking()
@@ -172,10 +197,11 @@ class Game:
         # draw standard text
         self.draw_text("HP:", 42, RED, 60, HEIGHT/10)
         self.draw_text("SCORE:", 42, BLUE, 108, 95)
+        # self.draw_text("HIGH SCORE:", 42, YELLOW, 180, 130)
         self.draw_text("========================================", 42, WHITE, WIDTH/2, 10)
         # draw health
         self.draw_text(str(self.health), 42, RED, 150, HEIGHT/10)
-        # draw timere
+        # draw timer
         self.draw_text(str(self.cd.delta), 42, WHITE, WIDTH/1.15, HEIGHT/10)
         # draw score
         self.draw_text(str(self.score), 42, BLUE, 230, 95)
