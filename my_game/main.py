@@ -101,7 +101,7 @@ class Game:
             m = Mob(40,40,(GREEN))
             # rantint sets direction
             # vec sets velocity between set ranbge
-            m.vel = vec(randint(1,5),randint(1,2))
+            m.vel = vec(randint(3,7),randint(1,2))
             self.all_sprites.add(m)
             self.enemies.add(m)
         # Makes game run
@@ -204,7 +204,7 @@ class Game:
         # draw timer
         self.draw_text(str(self.cd.delta), 42, WHITE, WIDTH/1.15, HEIGHT/10)
         # draw score
-        self.draw_text(str(self.score), 42, BLUE, 230, 95)
+        self.draw_text(str(self.score), 42, BLUE, 250, 95)
         pg.display.flip()
 
 # instantiate the game class...

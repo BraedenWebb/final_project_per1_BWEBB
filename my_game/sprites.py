@@ -146,7 +146,8 @@ class Bullet(Sprite):
         self.speed_x = sx
         self.speed_y = sy
         self.fired = False
-        self.image.fill(YELLOW)
+        # Bullet color
+        self.image.fill(RED)
     
     def update(self):
         self.rect.x += self.speed_x
