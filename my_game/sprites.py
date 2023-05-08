@@ -106,7 +106,7 @@ class Mob(Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         # Position of mob
-        self.pos = vec(WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/2, HEIGHT/15)
 
         # mob speed
         self.vel = vec(1)

@@ -77,7 +77,15 @@ class Game:
     def load_data(self):
         self.player_img = pg.image.load(path.join(img_folder, "ship.png")).convert()        
         # self.bullet_img = pg.image.load(path.join(img_folder, "bullet.png")).convert()        
-    
+    def spawn_enemies(self):
+        for i in range(1,10):
+            # width, height, color
+            m = Mob(30,30,(GREEN))
+            # rantint sets direction
+            # vec sets velocity between set range
+            m.vel = vec(randint(3,6),randint(3,10))
+            self.all_sprites.add(m)
+            self.enemies.add(m)
     # Properties for player
     def new(self):
         self.load_data()
@@ -94,16 +102,9 @@ class Game:
         self.bullets = pg.sprite.Group()
         self.player = Player(self)    
         self.all_sprites.add(self.player)
-        
+        self.spawn_enemies()
         ### Random enemies ###
-        for i in range(1,10):
-            # width, height, color
-            m = Mob(30,30,(GREEN))
-            # rantint sets direction
-            # vec sets velocity between set range
-            m.vel = vec(randint(3,6),randint(3,10))
-            self.all_sprites.add(m)
-            self.enemies.add(m)
+        
         # Creates enemies every 5 seconds
         
 
@@ -121,7 +122,7 @@ class Game:
     def run(self):
         self.playing = True
         while self.playing:
-            self.clock   .tick(FPS)
+            self.clock.tick(FPS)
             self.events()
             self.update()
             self.draw()
@@ -136,6 +137,9 @@ class Game:
     def update(self):
         self.all_sprites.update()
         # print(pg.time.get_ticks())
+        # Checks if there are 0 enemies on screen
+        if len(self.enemies) <= 2:
+            self.spawn_enemies()
         hits = pg.sprite.spritecollide(self.player, self.enemies, False)
         if hits:
             if hits[0]:
@@ -161,11 +165,12 @@ class Game:
             print(self.cd.delta)
             print("YOUR SCORE:")
             print(self.score)
+            self.screen.fill(RED)
             ### resets timer ###
-            self.cd.reset()
+            # self.cd.reset()
 
             # resets player position
-            self.playing = False
+            # self.playing = False
 
         # if self.health < 0:
         #     # Print Player Score
