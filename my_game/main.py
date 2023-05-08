@@ -1,6 +1,6 @@
 # File created by: Braeden Webb
 # Agenda:
-# gIT GITHUB    
+# GIT GITHUB    
 # Build file and folder structures
 # Create libraries
 # testing github changes
@@ -68,7 +68,7 @@ class Game:
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption("ঌ|D_0_D_G_E|໒")
+        pg.display.set_caption("SERBIA STRONG")
         # Timer set
         self.clock = pg.time.Clock()
         # Makes player running
@@ -95,15 +95,25 @@ class Game:
         self.player = Player(self)    
         self.all_sprites.add(self.player)
         
-        # adds enemies
-        for i in range(1,20):
+        ### Random enemies ###
+        for i in range(1,10):
             # width, height, color
-            m = Mob(40,40,(GREEN))
+            m = Mob(30,30,(GREEN))
             # rantint sets direction
-            # vec sets velocity between set ranbge
-            m.vel = vec(randint(3,7),randint(1,2))
+            # vec sets velocity between set range
+            m.vel = vec(randint(3,6),randint(3,10))
             self.all_sprites.add(m)
             self.enemies.add(m)
+        # Creates enemies every 5 seconds
+        
+
+        
+        ### Sets Enemies ###
+        # m = Mob(20,20,(GREEN))
+        # self.all_sprites.add(m)
+        # self.enemies.add(m)
+        # m.vel = vec(5)
+    
         # Makes game run
         self.run()
      
@@ -111,7 +121,7 @@ class Game:
     def run(self):
         self.playing = True
         while self.playing:
-            self.clock.tick(FPS)
+            self.clock   .tick(FPS)
             self.events()
             self.update()
             self.draw()
@@ -141,12 +151,12 @@ class Game:
             # Increase score
             self.score += 10
 
-
         # If player health goes below 0
         if self.health < 0:
             self.playerdeath = True
         if self.playerdeath == True:
             # Print Player Score
+            print("YOU LOSE:")
             print("YOUR TIME:")
             print(self.cd.delta)
             print("YOUR SCORE:")
@@ -198,7 +208,7 @@ class Game:
         self.draw_text("HP:", 42, RED, 60, HEIGHT/10)
         self.draw_text("SCORE:", 42, BLUE, 108, 95)
         # self.draw_text("HIGH SCORE:", 42, YELLOW, 180, 130)
-        self.draw_text("========================================", 42, WHITE, WIDTH/2, 10)
+        self.draw_text("DEFEND SERBIA", 42, WHITE, WIDTH/2, 10)
         # draw health
         self.draw_text(str(self.health), 42, RED, 150, HEIGHT/10)
         # draw timer

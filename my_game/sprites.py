@@ -24,12 +24,14 @@ class Player(Sprite):
         # self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(WIDTH/4, HEIGHT/1.1)
+        # Player starting position
+        self.pos = vec(WIDTH/2, HEIGHT/1)
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.cofric = 0.1
         self.canjump = False
         self.fired = False
+        self.last_update = 0
     
     # Player Inputs
     def input(self):
@@ -57,16 +59,19 @@ class Player(Sprite):
         # targety = mpos[1]
         # distance_x = targetx - self.rect.x
         # distance_y = targety - self.rect.y
-        speed_x = 0 
-        speed_y = -10
+        now = pg.time.get_ticks()
+        if now - self.last_update > 800:
+            self.last_update = now
+            speed_x = 0 
+            speed_y = -15
         # print(speed_x)
-        b = Bullet(self.pos.x,self.pos.y - self.rect.height, 30, 30, speed_x, speed_y, "player")
+            b = Bullet(self.pos.x,self.pos.y - self.rect.height, 30, 30, speed_x, speed_y, "player")
         # else:
         #     p = Pewpew(self.pos.x,self.pos.y - self.rect.height, 10, 10, speed_x, speed_y, "player")
 
         # Creates sprites
-        self.game.all_sprites.add(b)
-        self.game.bullets.add(b)
+            self.game.all_sprites.add(b)
+            self.game.bullets.add(b)
 
     def update(self):
         self.acc = vec(0, PLAYER_GRAV)
@@ -100,12 +105,13 @@ class Mob(Sprite):
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(WIDTH/2, HEIGHT/1)
+        # Position of mob
+        self.pos = vec(WIDTH/2, HEIGHT/2)
 
         # mob speed
-        # self.vel = vec(1)
-        # self.acc = vec(1,1)
-        # self.cofric = 0.001
+        self.vel = vec(1)
+        self.acc = vec(1,1)
+        self.cofric = 0.001
     def inbounds(self):
         if self.rect.x > WIDTH:
             self.vel.x *= -1
@@ -139,7 +145,7 @@ class Bullet(Sprite):
 
         # self.image.set_colorkey(BLUE)
         self.rect = self.image.get_rect()
-        self.image = pg.Surface((15,15))
+        self.image = pg.Surface((20,20))
 
         self.rect.x = x
         self.rect.y = y
@@ -147,7 +153,7 @@ class Bullet(Sprite):
         self.speed_y = sy
         self.fired = False
         # Bullet color
-        self.image.fill(RED)
+        self.image.fill(YELLOW)
     
     def update(self):
         self.rect.x += self.speed_x
