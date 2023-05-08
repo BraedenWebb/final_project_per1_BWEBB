@@ -15,13 +15,16 @@ class Player(Sprite):
         Sprite.__init__(self)
         
         # these are the properties
+        
+        # Adds Images
+        self.images_orig = pg.transform.scale(self.player_ship, (50,50))
+        self.image_orig.set_colorkey(WHITE)
+        self.image = self.image_orig.copy()
+        self.rect = self.image.get_rect()
+
         self.game = game
-        # Sets Player Sprite
-        self.image = pg.transform.scale(self.game.player_img, (48*2,30*2))
-        self.image.set_colorkey(WHITE)
-    
-        # self.image = pg.Surface((50,50))
-        # self.image.fill(WHITE)
+        self.image = pg.Surface((50,50))
+        self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         # Player starting position

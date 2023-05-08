@@ -68,24 +68,17 @@ class Game:
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption("SERBIA STRONG")
+        pg.display.set_caption("ঌ|D_0_D_G_E|໒")
+
+    def load_data(self):
+        self.player_ship = pg.image.load(os.path.join(img_folder, "ship.png")).convert()
+        
         # Timer set
         self.clock = pg.time.Clock()
         # Makes player running
         self.running = True
-
-    def load_data(self):
-        self.player_img = pg.image.load(path.join(img_folder, "ship.png")).convert()        
-        # self.bullet_img = pg.image.load(path.join(img_folder, "bullet.png")).convert()        
-    def spawn_enemies(self):
-        for i in range(1,10):
-            # width, height, color
-            m = Mob(30,30,(GREEN))
-            # rantint sets direction
-            # vec sets velocity between set range
-            m.vel = vec(randint(3,6),randint(3,10))
-            self.all_sprites.add(m)
-            self.enemies.add(m)
+        print(self.screen)
+    
     # Properties for player
     def new(self):
         self.load_data()
