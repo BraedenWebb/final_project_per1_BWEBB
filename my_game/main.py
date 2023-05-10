@@ -59,8 +59,6 @@ class Cooldown():
         self.delta = self.current_time - self.event_time
     def reset(self):
         self.event_time = ((pg.time.get_ticks())/1000)
-    def timer(self):
-        self.current_time = ((pg.time.get_ticks())/1000)
 
 class Game:
     def __init__(self):
@@ -83,7 +81,7 @@ class Game:
             m = Mob(30,30,(GREEN))
             # rantint sets direction
             # vec sets velocity between set range
-            m.vel = vec(randint(3,6),randint(3,10))
+            m.vel = vec(randint(3,10),randint(1,3))
             self.all_sprites.add(m)
             self.enemies.add(m)
     # Properties for player
@@ -93,6 +91,9 @@ class Game:
         # standard score
         self.score = 0
         self.cd = Cooldown()
+        # Time of death
+        self.deathtime = 0
+        # Player death
         self.playerdeath = False
         
         # self.all_sprites = pg.sprscoreoup()
@@ -159,13 +160,13 @@ class Game:
         if self.health < 0:
             self.playerdeath = True
         if self.playerdeath == True:
-            # Print Player Score
-            print("YOU LOSE:")
-            print("YOUR TIME:")
-            print(self.cd.delta)
-            print("YOUR SCORE:")
-            print(self.score)
-            self.screen.fill(RED)
+            self.deathtime = self.cd.delta
+        #     # Print Player Score
+        #     print("YOU LOSE:")
+        #     print("YOUR TIME:")
+        #     print(self.cd.delta)
+        #     print("YOUR SCORE:")
+        #     print(self.score)
             ### resets timer ###
             # self.cd.reset()
 
@@ -220,7 +221,24 @@ class Game:
         self.draw_text(str(self.cd.delta), 42, WHITE, WIDTH/1.15, HEIGHT/10)
         # draw score
         self.draw_text(str(self.score), 42, BLUE, 250, 95)
+        # Player death
+        if self.playerdeath == True:
+            self.screen.fill(RED) 
+            # Draw text
+            self.draw_text("SERBIA HAS FALLEN", 42, WHITE, WIDTH/2, 10)
+            self.draw_text("YOUR SCORE:", 42, WHITE, WIDTH/3, HEIGHT/2+50)
+            self.draw_text("YOUR TIME:", 42, WHITE, WIDTH/3, HEIGHT/2+90)
+            # Draw restart game text
+            self.draw_text("PRESS 'R' to Restart", 42, WHITE, WIDTH/2, HEIGHT/2+200)
+            # Draws parameters
+            self.draw_text(str(self.score), 42, WHITE, WIDTH/3+250, HEIGHT/2+50)
+            self.draw_text(str(self.deathtime), 42, WHITE, WIDTH/3+250, HEIGHT/2+90)
+
+
+       
         pg.display.flip()
+
+
 
 # instantiate the game class...
 g = Game()

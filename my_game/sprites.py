@@ -60,7 +60,7 @@ class Player(Sprite):
         # distance_x = targetx - self.rect.x
         # distance_y = targety - self.rect.y
         now = pg.time.get_ticks()
-        if now - self.last_update > 800:
+        if now - self.last_update > 500:
             self.last_update = now
             speed_x = 0 
             speed_y = -15
@@ -81,16 +81,20 @@ class Player(Sprite):
         self.pos += self.vel + 0.0 * self.acc
         self.rect.midbottom = self.pos
         # checks if player is off screen
-        if self.rect.x > WIDTH:
+        # right screen
+        if self.rect.x > WIDTH-95:
             # print("bump")
             self.vel.x = -5
+        # left screen
         if self.rect.x < 0:
             # print("bump")
             self.vel.x = 5
+        # top screen
         if self.rect.y < 0:
             # print("bump")
             self.vel.y = 5
-        if self.rect.y > HEIGHT:
+        # bottom screen
+        if self.rect.y > HEIGHT-60:
             # print("bump")
             self.vel.y = -5
             
