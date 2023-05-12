@@ -172,8 +172,9 @@ class Game:
         # If they both collide and are set to True, they dissapear
         playerhits = pg.sprite.groupcollide(self.bullets, self.enemies, True, True)
         if playerhits:
-            # Increase score
-            self.score += 10
+            if self.playerdeath == False:
+                # Increase score
+                self.score += 10
 
         # If player health goes below 0
         if self.health <= 0:
