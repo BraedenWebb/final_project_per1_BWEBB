@@ -1,7 +1,7 @@
 # Filed created by Braeden Webb
 
-WIDTH = 600
-HEIGHT = 600
+WIDTH = 650
+HEIGHT = 650
 
 PLAYER_ACC = .5
 PLAYER_FRICTION = -.50

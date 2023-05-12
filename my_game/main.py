@@ -77,7 +77,9 @@ class Game:
         self.get_current_time = True
 
     def load_data(self):
-        self.player_img = pg.image.load(path.join(img_folder, "ship.png")).convert()        
+        self.player_img = pg.image.load(path.join(img_folder, "SHIP.png")).convert()        
+        self.background = pg.image.load(path.join(img_folder, "BACKGROUND.png")).convert()  
+        self.background_rect = self.background.get_rect()  
         # self.bullet_img = pg.image.load(path.join(img_folder, "bullet.png")).convert()        
     def spawn_enemies(self):
         for i in range(1,14):
@@ -85,7 +87,7 @@ class Game:
             m = Mob(30,30,(GREEN))
             # rantint sets direction
             # vec sets velocity between set range
-            m.vel = vec(randint(1,5),randint(1,3))
+            m.vel = vec(randint(1,4),randint(1,3))
             self.all_sprites.add(m)
             self.enemies.add(m)
     def spawn_enemies_less(self):
@@ -94,16 +96,16 @@ class Game:
             m = Mob(30,30,(GREEN))
             # rantint sets direction
             # vec sets velocity between set range
-            m.vel = vec(randint(1,5),randint(1,3))
+            m.vel = vec(randint(1,2),randint(1,3))
             self.all_sprites.add(m)
             self.enemies.add(m)
-    def tough_spawn_enemies(self):
+    def spawn_tough_enemies(self):
         for i in range(1,5):
             # width, height, color
             m = Mob(30,30,(LIGHT_BLUE))
             # rantint sets direction
             # vec sets velocity between set range
-            m.vel = vec(randint(3,5),randint(1,6))
+            m.vel = vec(randint(5,7),randint(1,6))
             self.all_sprites.add(m)
             self.enemies.add(m)
     # Properties for player
@@ -159,7 +161,7 @@ class Game:
         if len(self.enemies) <= 2:
             # Spawns new enemies
             self.spawn_enemies()
-            self.tough_spawn_enemies()
+            self.spawn_tough_enemies()
         hits = pg.sprite.spritecollide(self.player, self.enemies, False)
         if hits:
             if hits[0]:
@@ -228,22 +230,24 @@ class Game:
     # Draw Sceen Text
     def draw(self):
         self.screen.fill(BLACK)
+        self.background_rect.x = 0
+        self.background_rect.y = 0
         # draw players, enemies, etc...
         self.all_sprites.draw(self.screen)
         # draw standard text
         self.draw_text("HP: " + (str(self.health)), 42, RED, 100, HEIGHT/10)
-        self.draw_text("SCORE: " + (str(self.score)), 42, BLUE, 160, 95)
+        self.draw_text("SCORE: " + (str(self.score)), 42, BLUE, 160, HEIGHT/10 + 35)
         # self.draw_text("HIGH SCORE:", 42, YELLOW, 180, 130)
         self.draw_text("DEFEND SERBIA", 42, WHITE, WIDTH/2, 10)
         # draw health
         # self.draw_text(str(self.health), 42, RED, 150, HEIGHT/10)
         # draw timer
-        self.draw_text(str(self.cd.delta), 42, WHITE, 120, 130)
+        self.draw_text(str(self.cd.delta), 42, WHITE, 120, HEIGHT/10+70)
         # draw score
         # self.draw_text(str(self.score), 42, BLUE, 250, 95)
         # Player death
         if self.playerdeath == True:
-            self.screen.fill(RED) 
+            self.screen.fill(RED)
             # Draw text
             self.draw_text("SERBIA HAS FALLEN", 42, WHITE, WIDTH/2, 10)
             self.draw_text("YOUR SCORE: " + (str(self.score)), 42, WHITE, WIDTH/2, HEIGHT/2+50)
