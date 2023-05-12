@@ -60,10 +60,10 @@ class Player(Sprite):
         # distance_x = targetx - self.rect.x
         # distance_y = targety - self.rect.y
         now = pg.time.get_ticks()
-        if now - self.last_update > 500:
+        if now - self.last_update > 400:
             self.last_update = now
             speed_x = 0 
-            speed_y = -15
+            speed_y = -23
         # print(speed_x)
             b = Bullet(self.pos.x,self.pos.y - self.rect.height, 30, 30, speed_x, speed_y, "player")
         # else:
@@ -113,20 +113,24 @@ class Mob(Sprite):
         self.pos = vec(WIDTH/2, HEIGHT/15)
 
         # mob speed
-        self.vel = vec(1)
-        self.acc = vec(1,1)
-        self.cofric = 0.001
+        # self.vel = vec(1)
+        # self.acc = vec(1,1)
+        # self.cofric = 0.001
     def inbounds(self):
-        if self.rect.x > WIDTH:
+        # Right Screen
+        if self.rect.x > WIDTH-30:
             self.vel.x *= -1
             # self.acc = self.vel * -self.cofric
+        # Left Screen
         if self.rect.x < 0:
             self.vel.x *= -1
             # self.acc = self.vel * -self.cofric
+        # Bottom Screen
         if self.rect.y < 0:
             self.vel.y *= -1
             # self.acc = self.vel * -self.cofric
-        if self.rect.y > HEIGHT:
+        # Top Screen
+        if self.rect.y > HEIGHT-30:
             self.vel.y *= -1
             # self.acc = self.vel * -self.cofric
     def update(self):
@@ -149,7 +153,7 @@ class Bullet(Sprite):
 
         # self.image.set_colorkey(BLUE)
         self.rect = self.image.get_rect()
-        self.image = pg.Surface((20,20))
+        self.image = pg.Surface((10,30))
 
         self.rect.x = x
         self.rect.y = y
