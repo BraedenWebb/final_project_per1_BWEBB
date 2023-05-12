@@ -27,26 +27,6 @@ from time import *
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, "images")
 
-### Images ###
-
-# game_folder = os.path.dirname(__file__)
-# print(game_folder)
-
-# # Takes images from folders and sets them to variables
-# ship_image = pg.image.load(os.path.join(game_folder, 'ship.png')).convert()
-
-# # Set Image Transparency
-# ship_image.set_colorkey(BLACK)
-
-# # Does not store pixels but instead where they are and how many they are in dimensions
-# # Allows for those values to changed and adjusted
-# ship_image_rect = ship_image.get_rect()
-
-# # Sets image coordinates
-# # rps
-# ship_image_rect.x = 0
-
-
 ### create game class in order to pass properties to the sprites file
 
 class Cooldown():
@@ -78,8 +58,14 @@ class Game:
 
     def load_data(self):
         self.player_img = pg.image.load(path.join(img_folder, "SHIP.png")).convert()        
-        self.background = pg.image.load(path.join(img_folder, "BACKGROUND.png")).convert()  
-        self.background_rect = self.background.get_rect()  
+        self.background_img = pg.image.load(path.join(img_folder, "BACKGROUND.png")).convert()  
+        
+        self.background_img_rect = self.background_img.get_rect() 
+
+        self.background_img_rect.x = 0
+        self.background_img_rect.y = 0 
+
+        screen.blit(background_img, background_img_rect)
         # self.bullet_img = pg.image.load(path.join(img_folder, "bullet.png")).convert()        
     def spawn_enemies(self):
         for i in range(1,14):
@@ -230,8 +216,6 @@ class Game:
     # Draw Sceen Text
     def draw(self):
         self.screen.fill(BLACK)
-        self.background_rect.x = 0
-        self.background_rect.y = 0
         # draw players, enemies, etc...
         self.all_sprites.draw(self.screen)
         # draw standard text
