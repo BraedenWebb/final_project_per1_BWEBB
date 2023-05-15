@@ -10,9 +10,9 @@ TITLE = "Sprite"
 FONT_NAME = "arial"
 WIDTH = 300
 HEIGHT = 200
-FPS = 0
+FPS = 0 
 BGCOLOR = (0,0,0)
-WHITE = (255,255,255)
+WHITE = (255,255, 255)
 
 dir = path.dirname(__file__)
 img_dir = path.join(dir, 'images')
