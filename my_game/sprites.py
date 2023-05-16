@@ -46,6 +46,12 @@ class Player(Sprite):
             self.acc.x = -PLAYER_ACC
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
+        # Quit game
+        if keystate[pg.K_ESCAPE]:
+            pg.quit()
+        # Restart Game
+        if keystate[pg.K_r]:
+            g.new(self)
         # Firing Controls
         if keystate[pg.K_SPACE]:
             self.fire()
@@ -60,7 +66,7 @@ class Player(Sprite):
         # distance_x = targetx - self.rect.x
         # distance_y = targety - self.rect.y
         now = pg.time.get_ticks()
-        if now - self.last_update > 400:
+        if now - self.last_update > 300:
             self.last_update = now
             speed_x = 0 
             speed_y = -23
@@ -102,6 +108,9 @@ class Player(Sprite):
 class Mob(Sprite):
     def __init__(self,width,height, color):
         Sprite.__init__(self)
+        
+        # self.image = pg.transform.scale(self.game.enemy_img, (48*2,30*2))
+        # self.image.set_colorkey(WHITE)
         self.width = width
         self.height = height
         self.image = pg.Surface((self.width,self.height))

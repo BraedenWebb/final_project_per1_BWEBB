@@ -57,15 +57,16 @@ class Game:
         self.get_current_time = True
 
     def load_data(self):
-        self.player_img = pg.image.load(path.join(img_folder, "SHIP.png")).convert()        
-        self.background_img = pg.image.load(path.join(img_folder, "BACKGROUND.png")).convert()  
-        
-        self.background_img_rect = self.background_img.get_rect() 
-
-        self.background_img_rect.x = 0
-        self.background_img_rect.y = 0 
-
-        screen.blit(background_img, background_img_rect)
+        # player sprite
+        self.player_img = pg. image.load(path.join(img_folder, "SHIP.png")).convert()  
+        # enemy sprite
+        self.enemy_img = pg. image.load(path.join(img_folder, "ENEMY.png")).convert()  
+        # background sprite  
+        self.background_img = pg.image.load(path.join(img_folder, "BACKGROUND.png")).convert()
+        self.background_img_rect = self.background_img.get_rect()
+        # death screen sprite
+        self.death_img = pg.image.load(path.join(img_folder, "DEATH.png")).convert()
+        self.death_img_rect = self.death_img.get_rect()
         # self.bullet_img = pg.image.load(path.join(img_folder, "bullet.png")).convert()        
     def spawn_enemies(self):
         for i in range(1,14):
@@ -73,7 +74,7 @@ class Game:
             m = Mob(30,30,(GREEN))
             # rantint sets direction
             # vec sets velocity between set range
-            m.vel = vec(randint(1,4),randint(1,3))
+            m.vel = vec(randint(1,10),randint(1,10))
             self.all_sprites.add(m)
             self.enemies.add(m)
     def spawn_enemies_less(self):
@@ -151,11 +152,11 @@ class Game:
         hits = pg.sprite.spritecollide(self.player, self.enemies, False)
         if hits:
             if hits[0]:
-                # hits[0].kill()
+                hits[0].kill()
                 # print("enemy hit")
                 # print(self.health)
                 # Enemy damage
-                self.health -= 1
+                self.health -= 10
         # Group collide checks if two variables collide
         # If they both collide and are set to True, they dissapear
         playerhits = pg.sprite.groupcollide(self.bullets, self.enemies, True, True)
@@ -216,6 +217,7 @@ class Game:
     # Draw Sceen Text
     def draw(self):
         self.screen.fill(BLACK)
+        self.screen.blit(self.background_img, self.background_img_rect)
         # draw players, enemies, etc...
         self.all_sprites.draw(self.screen)
         # draw standard text
@@ -237,7 +239,7 @@ class Game:
             self.draw_text("YOUR SCORE: " + (str(self.score)), 42, WHITE, WIDTH/2, HEIGHT/2+50)
             self.draw_text("YOUR TIME: " + (str(self.deathtime)), 42, WHITE, WIDTH/2, HEIGHT/2+90)
             # Draw restart game text
-            # self.draw_text("Press 'R' to Restart", 42, WHITE, WIDTH/2, HEIGHT/2+200)
+            self.draw_text("Press 'esc' to Exit", 42, WHITE, WIDTH/2, HEIGHT/2+200)
             # Draws parameters
             # self.draw_text(str(self.score), 42, WHITE, WIDTH/3+250, HEIGHT/2+50)
             # self.draw_text(str(self.deathtime), 42, WHITE, WIDTH/3+250, HEIGHT/2+90)
