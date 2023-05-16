@@ -235,6 +235,7 @@ class Game:
         # Player death
         if self.playerdeath == True:
             self.screen.fill(RED)
+            # self.screen.blit(self.death_img, self.death_img_rect)
             # Draw text
             self.draw_text("SERBIA HAS FALLEN", 42, WHITE, WIDTH/2, 10)
             self.draw_text("YOUR SCORE: " + (str(self.score)), 42, WHITE, WIDTH/2, HEIGHT/2+50)
