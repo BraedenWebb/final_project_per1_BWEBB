@@ -60,7 +60,8 @@ class Game:
         # player sprite
         self.player_img = pg. image.load(path.join(img_folder, "SHIP.png")).convert()  
         # enemy sprite
-        self.enemy_img = pg. image.load(path.join(img_folder, "ENEMY.png")).convert()  
+        self.enemy_img = pg. image.load(path.join(img_folder, "ENEMY.png")).convert()
+        self.enemy_img = pg. image.load(path.join(img_folder, "BLUEENEMY.png")).convert()
         # background sprite  
         self.background_img = pg.image.load(path.join(img_folder, "BACKGROUND.png")).convert()
         self.background_img_rect = self.background_img.get_rect()
@@ -74,7 +75,7 @@ class Game:
             m = Mob(30,30,(GREEN))
             # rantint sets direction
             # vec sets velocity between set range
-            m.vel = vec(randint(1,10),randint(1,10))
+            m.vel = vec(randint(1,5),randint(1,5))
             self.all_sprites.add(m)
             self.enemies.add(m)
     def spawn_enemies_less(self):
