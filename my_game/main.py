@@ -172,6 +172,7 @@ class Game:
             if self.get_current_time:
                 self.deathtime = self.cd.delta
                 self.get_current_time = False
+
         #     print("YOU LOSE:")
         #     print("YOUR TIME:")
         #     print(self.cd.delta)
